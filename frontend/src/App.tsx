@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import ReactFlow, { Background, Controls } from "reactflow";
 import "reactflow/dist/style.css";
 
@@ -21,63 +22,85 @@ function ProjectGraph() {
   ];
 
   return (
-    <div className="w-96 h-60 bg-white shadow-lg rounded-lg overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1 }}
+      className="w-96 h-60 bg-white shadow-lg rounded-lg overflow-hidden border border-gray-300"
+    >
       <ReactFlow nodes={initialNodes} edges={initialEdges}>
         <Background />
         <Controls />
       </ReactFlow>
-    </div>
+    </motion.div>
   );
 }
 
 const FeatureCard = ({ title, description }) => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 transition-all duration-300"
+    >
       <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
       <p className="text-gray-600 mt-2">{description}</p>
-    </div>
+    </motion.div>
   );
 };
 
 function App() {
   return (
-    <div className="min-h-screen bg-white relative">
-      {/* Dot Grid Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle,_#e5e7eb_1px,_transparent_1px)] bg-[size:20px_20px]"></div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white relative">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="absolute inset-0 bg-[radial-gradient(circle,_#e5e7eb_1px,_transparent_1px)] bg-[size:20px_20px]"
+      ></motion.div>
 
-      {/* Navbar */}
       <nav className="relative flex justify-between items-center p-6 max-w-6xl mx-auto">
-        <div className="text-xl font-bold text-gray-800">Atlas</div>
+        <div className="text-2xl font-bold text-gray-800">Atlas</div>
         <div className="hidden md:flex space-x-6">
           <a href="#" className="text-gray-600 hover:text-gray-900">Product</a>
           <a href="#" className="text-gray-600 hover:text-gray-900">Docs</a>
           <a href="#" className="text-gray-600 hover:text-gray-900">Blog</a>
         </div>
-        <div className="flex items-center space-x-4">
-          <button className="bg-blue-600 text-white px-5 py-2 rounded-md shadow-md hover:bg-blue-700 transition">
-            Login
-          </button>
-        </div>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="bg-blue-600 text-white px-5 py-2 rounded-md shadow-md hover:bg-blue-700 transition"
+        >
+          Login
+        </motion.button>
       </nav>
 
-      {/* Hero Section */}
       <header className="relative text-center py-20 px-6">
-        <h1 className="text-4xl font-bold text-gray-900 leading-snug">
+        <motion.h1
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="text-5xl font-bold text-gray-900 leading-snug"
+        >
           Atlas: Interactive Project Roadmap Generator
-        </h1>
-        <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">
+        </motion.h1>
+        <motion.p
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.2 }}
+          className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg"
+        >
           A visual, interactive tool that dynamically maps out technologies, prerequisites, and dependencies for any project idea.
-        </p>
-        <button className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-700 transition">
+        </motion.p>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-700 transition"
+        >
           Get Started
-        </button>
+        </motion.button>
 
-        {/* Interactive Graph */}
         <div className="mt-16 flex justify-center">
           <ProjectGraph />
         </div>
 
-        {/* Animated Feature Cards */}
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
           <FeatureCard
             title="AI-Powered Node Generation"
