@@ -1,6 +1,6 @@
 import os
 import json
-from openai import OpenAI
+from openai import OpenAI, AsyncOpenAI
 from dotenv import load_dotenv
 from pydantic import BaseModel
 from supabase import create_client, Client
@@ -8,7 +8,7 @@ from supabase import create_client, Client
 load_dotenv()
 
 ai_key = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=ai_key)
+client = AsyncOpenAI(api_key=ai_key)
 
 url: str = os.getenv("SUPABASE_URL")
 key: str = os.getenv("SUPABASE_KEY")
@@ -42,8 +42,8 @@ class Response(BaseModel):
     edges: list[Edge]
 
 
-def generate_roadmap(prompt: str):
-    response = client.beta.chat.completions.parse(
+async def generate_roadmap(prompt: str):
+    response = await client.beta.chat.completions.parse(
         model="gpt-4o-2024-08-06",
         messages=[
             {
@@ -62,5 +62,3 @@ def generate_roadmap(prompt: str):
     
     return parsed_json
 
-
-generate_roadmap("I want to build an Airbnb clone.")
