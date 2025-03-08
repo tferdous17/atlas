@@ -83,28 +83,14 @@ function LandingPageGraphComponent() {
       source: "1", 
       target: "2", 
       animated: true, 
-      style: { 
-        stroke: '#3b82f6', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#3b82f6' 
-      }
+     
     },
     { 
       id: "e1-3", 
       source: "1", 
       target: "3", 
       animated: true, 
-      style: { 
-        stroke: '#3b82f6', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#3b82f6' 
-      }
+      
     },
     
     { 
@@ -112,28 +98,14 @@ function LandingPageGraphComponent() {
       source: "2", 
       target: "4", 
       animated: true,
-      style: { 
-        stroke: '#60a5fa', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#60a5fa' 
-      }
+      
     },
     { 
       id: "e2-5", 
       source: "2", 
       target: "5", 
       animated: true,
-      style: { 
-        stroke: '#60a5fa', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#60a5fa' 
-      }
+     
     },
     
     { 
@@ -141,28 +113,14 @@ function LandingPageGraphComponent() {
       source: "3", 
       target: "6", 
       animated: true,
-      style: { 
-        stroke: '#60a5fa', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#60a5fa' 
-      }
+    
     },
     { 
       id: "e3-7", 
       source: "3", 
       target: "7", 
       animated: true,
-      style: { 
-        stroke: '#60a5fa', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#60a5fa' 
-      }
+    
     },
     
     { 
@@ -170,56 +128,28 @@ function LandingPageGraphComponent() {
       source: "4", 
       target: "8", 
       animated: true,
-      style: { 
-        stroke: '#93c5fd', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#93c5fd' 
-      }
+    
     },
     { 
       id: "e5-8", 
       source: "5", 
       target: "8", 
       animated: true,
-      style: { 
-        stroke: '#93c5fd', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#93c5fd' 
-      }
+  
     },
     { 
       id: "e6-9", 
       source: "6", 
       target: "9", 
       animated: true,
-      style: { 
-        stroke: '#93c5fd', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#93c5fd' 
-      }
+  
     },
     { 
       id: "e7-9", 
       source: "7", 
       target: "9", 
       animated: true,
-      style: { 
-        stroke: '#93c5fd', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#93c5fd' 
-      }
+    
     },
     
     // Final connections
@@ -228,28 +158,14 @@ function LandingPageGraphComponent() {
       source: "8", 
       target: "10", 
       animated: true,
-      style: { 
-        stroke: '#bfdbfe', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#bfdbfe' 
-      }
+     
     },
     { 
       id: "e9-10", 
       source: "9", 
       target: "10", 
       animated: true,
-      style: { 
-        stroke: '#bfdbfe', 
-        strokeWidth: 2
-      },
-      markerEnd: { 
-        type: MarkerType.ArrowClosed, 
-        color: '#bfdbfe' 
-      }
+    
     },
   ];
 
