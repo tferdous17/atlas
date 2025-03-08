@@ -3,6 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from typing import Annotated
 from generate_roadmap import generate_roadmap
+import uuid
 
 '''
 -POST /api/generateMap
@@ -23,9 +24,10 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.post("/api/generateMap")
+@app.post("/api/generate-map")
 async def generate_map(prompt: Prompt):
     response = await generate_roadmap(prompt.text)
+    response["id"] = str(uuid.uuid4())
     return response
 
 
