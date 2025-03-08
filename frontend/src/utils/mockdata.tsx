@@ -1,29 +1,25 @@
 import { MarkerType } from "@xyflow/react";
 import { colors, styles } from "./mockStyles";
-import { TooltipNode } from "@/components/nodes/tooltip-node";
-import ProjectNode from "@/components/nodes/ProjectNode";
+import ProjectNode from "@/components/nodes/main/ProjectNode";
+import FrontendParentNode from "@/components/nodes/main/FrontendParentNode";
+import FrontendChildNode from "@/components/nodes/main/FrontendChildNode";
 export const nodeTypes = {
-  tooltipNode: TooltipNode,
-  projectNode: ProjectNode
+  projectNode: ProjectNode,
+  frontendParentNode: FrontendParentNode,
+  frontendChildNode: FrontendChildNode,
 };
 export const initialNodes = [
-  // Main Project Node
   {
     id: "0",
     data: { label: "Flux" },
     position: { x: 400, y: 400 },
     type: "projectNode"
   },
-
-  // Parent Nodes
   {
     id: "1",
     data: { label: "Frontend" },
     position: { x: 400, y: 180 },
-    style: {
-      ...styles.categoryNode,
-      backgroundColor: colors.frontend,
-    },
+    type: "frontendParentNode"
   },
   {
     id: "2",
@@ -58,19 +54,13 @@ export const initialNodes = [
     id: "5",
     data: { label: "React" },
     position: { x: 350, y: 80 },
-    style: {
-      ...styles.childNode,
-      backgroundColor: colors.frontendChild,
-    },
+    type: "frontendChildNode",
   },
   {
     id: "6",
     data: { label: "Tailwind" },
     position: { x: 460, y: 80 },
-    style: {
-      ...styles.childNode,
-      backgroundColor: colors.frontendChild,
-    },
+    type: "frontendChildNode",
   },
 
   // Backend Children
@@ -148,6 +138,7 @@ export const initialEdges = [
     id: "e0-1",
     source: "0",
     target: "1",
+    sourceHandle: "top", // Specifying the top handle
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
@@ -162,6 +153,7 @@ export const initialEdges = [
     id: "e0-2",
     source: "0",
     target: "2",
+    sourceHandle: "right", // Specifying the right handle
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
@@ -172,10 +164,12 @@ export const initialEdges = [
     },
     zIndex: 1,
   },
+  // Flux to Machine Learning (using BOTTOM handle)
   {
     id: "e0-3",
     source: "0",
     target: "3",
+    sourceHandle: "bottom", // Specifying the bottom handle
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
@@ -186,10 +180,12 @@ export const initialEdges = [
     },
     zIndex: 1,
   },
+  // Flux to Methodology (using LEFT handle)
   {
     id: "e0-4",
     source: "0",
     target: "4",
+    sourceHandle: "left", // Specifying the left handle
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
@@ -200,8 +196,9 @@ export const initialEdges = [
     },
     zIndex: 1,
   },
-
-  // Frontend children - with stronger colors
+  
+  // The rest of your edge definitions remain the same
+  // Frontend children
   {
     id: "e1-5",
     source: "1",
@@ -228,7 +225,6 @@ export const initialEdges = [
     },
     zIndex: 0,
   },
-
   // Backend children
   {
     id: "e2-7",
@@ -269,7 +265,6 @@ export const initialEdges = [
     },
     zIndex: 0,
   },
-
   // ML children
   {
     id: "e3-10",
@@ -297,7 +292,6 @@ export const initialEdges = [
     },
     zIndex: 0,
   },
-
   // Methodology children
   {
     id: "e4-12",

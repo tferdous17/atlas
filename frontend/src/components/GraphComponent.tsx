@@ -8,9 +8,8 @@ import {
   Controls,
   MarkerType,
 } from "@xyflow/react";
-import { initialEdges, initialNodes } from "@/utils/mockData";
+import { initialEdges, initialNodes, nodeTypes} from "@/utils/mockData";
 import { colors } from "@/utils/mockStyles";
-import { nodeTypes } from "@/utils/mockData";
 
 export default function GraphComponent() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -58,7 +57,7 @@ export default function GraphComponent() {
         proOptions={{ hideAttribution: true }}
       >
         <Background
-          color="#E2E8F0"
+          color="#1E1E1E"
           gap={20}
           size={1.5}
           style={{ backgroundColor: colors.background }}
