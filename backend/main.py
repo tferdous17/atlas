@@ -39,6 +39,11 @@ async def generate_map(prompt: Prompt):
     
     return response
 
+# for chris
+@app.get("/api/roadmaps/{roadmap_id}")
+async def get_roadmap(roadmap_id):
+    return roadmap_id
+
 
 
 
