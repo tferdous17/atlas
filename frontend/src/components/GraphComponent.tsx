@@ -13,7 +13,7 @@ const nodeTypes = {
 
 
 
-export default function FlowChart() {
+export default function GraphComponent() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
