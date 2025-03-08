@@ -2,6 +2,8 @@ from fastapi import FastAPI, Depends
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from typing import Annotated
+from generate_roadmap import generate_roadmap
+
 '''
 -POST /api/generateMap
 -GET  /api/roadmaps/<id>
@@ -23,8 +25,8 @@ async def root():
 
 @app.post("/api/generateMap")
 async def generate_map(prompt: Prompt):
-    # when AI integration is done, its going to call a diff function and return its response
-    return {"prompt": prompt.text}
+    response = await generate_roadmap(prompt.text)
+    return response
 
 
 
