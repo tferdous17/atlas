@@ -1,0 +1,24 @@
+# Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env
+.env.*
+
+# Environment variables
+*.env
+*.env.*
+
+# Database files
+*.db
+
+# VS Code files
+.vscode/
+
+# IDE / Editor files
+.idea/
+*.iml
