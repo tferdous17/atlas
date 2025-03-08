@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 const LandingPage = () => {
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white relative">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white relative absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#3ea9ff_100%)]">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="absolute inset-0 bg-[radial-gradient(circle,_#e5e7eb_1px,_transparent_1px)] bg-[size:20px_20px]"
+          className=""
         ></motion.div>
   
         <nav className="relative flex justify-between items-center p-6 max-w-6xl mx-auto">
-          <div className="text-2xl font-bold text-gray-800">Atlas</div>
+          <div className="text-2xl font-bold text-gray-800 font-serif">Atlas</div>
           <div className="hidden md:flex space-x-6">
             <a href="#" className="text-gray-600 hover:text-gray-900">Product</a>
             <a href="#" className="text-gray-600 hover:text-gray-900">Docs</a>
@@ -32,9 +32,27 @@ const LandingPage = () => {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1 }}
-            className="text-5xl font-bold text-gray-900 leading-snug"
+            className="text-6xl font-bold text-gray-900 leading-snug text-transparent bg-clip-text text-center bg-gradient-to-r from-blue-800 to-indigo-900 font-serif"
           >
-            Atlas: Interactive Project Roadmap Generator
+            Atlas
+          </motion.h1>
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="text-7xl font-bold text-gray-900 leading-snug"
+          >
+            Your Roadmap to
+          </motion.h1>
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="text-7xl font-bold text-gray-900 leading-snug"
+          >
+            <span className="bg-yellow-300 px-1 inline rounded-sm">
+              Smarter
+            </span> Development.
           </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -42,13 +60,13 @@ const LandingPage = () => {
             transition={{ duration: 1.2 }}
             className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg"
           >
-            A visual, interactive tool that dynamically maps out technologies, prerequisites, and dependencies for any project idea.
+            Atlas is a visual, interactive tool that dynamically maps out technologies, prerequisites, and dependencies for any project idea—providing a clear path for any project.
           </motion.p>
           <motion.button
             whileHover={{ scale: 1.1 }}
-            className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-blue-700 transition"
+            className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-md shadow-md cursor-pointer"
           >
-            Get Started
+            Get Started →
           </motion.button>
   
           <div className="mt-16 flex justify-center">
@@ -79,3 +97,5 @@ const LandingPage = () => {
 }
 
 export default LandingPage;
+
+{/* <div class=></div> */}
