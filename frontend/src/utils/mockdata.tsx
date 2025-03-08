@@ -1,8 +1,8 @@
 import { MarkerType } from "@xyflow/react";
 import { colors, styles } from "./mockStyles";
 import ProjectNode from "@/components/nodes/main/ProjectNode";
-import FrontendParentNode from "@/components/nodes/main/FrontendParentNode";
-import FrontendChildNode from "@/components/nodes/main/FrontendChildNode";
+import FrontendParentNode from "@/components/nodes/main/FE/FrontendParentNode";
+import FrontendChildNode from "@/components/nodes/main/FE/FrontendChildNode";
 export const nodeTypes = {
   projectNode: ProjectNode,
   frontendParentNode: FrontendParentNode,
