@@ -1,15 +1,20 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
-
+from typing import Annotated
 '''
 -POST /api/generateMap
 -GET  /api/roadmaps/<id>
-'''
 
-app = FastAPI()
+'''
 
 class RoadMap(BaseModel):
     prompt: str
+
+app = FastAPI()
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
 
 @app.get("/")
 async def root():
@@ -20,6 +25,7 @@ async def root():
 async def test(rm: RoadMap):
     print(f"recived prompt {rm.prompt} ")
     return{"prompt": rm.prompt}
+
 
 
 
