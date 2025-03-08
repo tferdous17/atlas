@@ -6,32 +6,34 @@ import {
   addEdge,
   Background,
   Controls,
-  MarkerType
+  MarkerType,
 } from "@xyflow/react";
-import { TooltipNode } from "@/components/tooltip-node";
-import { initialEdges, initialNodes} from "@/utils/mockData";
+import { initialEdges, initialNodes } from "@/utils/mockData";
 import { colors } from "@/utils/mockStyles";
-
-const nodeTypes = {
-  tooltipNode: TooltipNode,
-};
+import { nodeTypes } from "@/utils/mockData";
 
 export default function GraphComponent() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge({
-      ...params,
-      animated: true,
-      style: { stroke: colors.edgeColor, strokeWidth: 4 }, // Increased stroke width
-      markerEnd: {
-        type: MarkerType.ArrowClosed,
-        color: colors.edgeColor,
-        width: 20,
-        height: 20,
-      },
-    }, eds)),
+    (params) =>
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...params,
+            animated: true,
+            style: { stroke: colors.edgeColor, strokeWidth: 4 },
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+              color: colors.edgeColor,
+              width: 20,
+              height: 20,
+            },
+          },
+          eds
+        )
+      ),
     [setEdges]
   );
 
@@ -52,7 +54,7 @@ export default function GraphComponent() {
         selectNodesOnDrag={false}
         zoomOnScroll={true}
         panOnScroll={false}
-        connectionLineStyle={{ stroke: '#1E293B', strokeWidth: 3 }} // Darker stroke color
+        connectionLineStyle={{ stroke: "#1E293B", strokeWidth: 3 }} // Darker stroke color
         proOptions={{ hideAttribution: true }}
       >
         <Background

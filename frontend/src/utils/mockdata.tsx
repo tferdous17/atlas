@@ -1,19 +1,21 @@
 import { MarkerType } from "@xyflow/react";
 import { colors, styles } from "./mockStyles";
-
+import { TooltipNode } from "@/components/nodes/tooltip-node";
+import ProjectNode from "@/components/nodes/ProjectNode";
+export const nodeTypes = {
+  tooltipNode: TooltipNode,
+  projectNode: ProjectNode
+};
 export const initialNodes = [
   // Main Project Node
   {
     id: "0",
     data: { label: "Flux" },
     position: { x: 400, y: 400 },
-    style: {
-      ...styles.mainNode,
-      backgroundColor: colors.primary,
-    },
+    type: "projectNode"
   },
 
-  // Category Nodes
+  // Parent Nodes
   {
     id: "1",
     data: { label: "Frontend" },
@@ -141,9 +143,7 @@ export const initialNodes = [
   },
 ];
 
-// Enhanced edges with better styling and arrow markers
 export const initialEdges = [
-  // Main connections - with stronger visibility
   {
     id: "e0-1",
     source: "0",
