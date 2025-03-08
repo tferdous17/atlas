@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const LandingPage = () => {
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white relative absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#3ea9ff_100%)]">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white relative absolute inset-0 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#3ea9ff_100%)]">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -32,7 +32,7 @@ const LandingPage = () => {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1 }}
-            className="text-6xl font-bold text-gray-900 leading-snug text-transparent bg-clip-text text-center bg-gradient-to-r from-blue-800 to-indigo-900 font-serif"
+            className="text-5xl font-bold text-gray-900 leading-snug text-transparent bg-clip-text text-center bg-gradient-to-r from-blue-800 to-indigo-900 font-serif"
           >
             Atlas
           </motion.h1>
