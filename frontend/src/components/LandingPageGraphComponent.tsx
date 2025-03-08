@@ -4,7 +4,6 @@ import ReactFlow, {
   Controls,
   Node,
   Edge,
-  MarkerType,
   NodeTypes
 } from "reactflow";
 import "reactflow/dist/style.css";
