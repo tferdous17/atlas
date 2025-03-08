@@ -1,5 +1,5 @@
 import GraphComponent from "@/components/GraphComponent";
-
+import "@xyflow/react/dist/style.css";
 const GraphPage = () => {
 
     return(
