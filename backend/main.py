@@ -8,8 +8,8 @@ from typing import Annotated
 
 '''
 
-class RoadMap(BaseModel):
-    prompt: str
+class Prompt(BaseModel):
+    text: str
 
 app = FastAPI()
 
@@ -22,9 +22,9 @@ async def root():
 
 
 @app.post("/api/generateMap")
-async def test(rm: RoadMap):
-    print(f"recived prompt {rm.prompt} ")
-    return{"prompt": rm.prompt}
+async def generate_map(prompt: Prompt):
+    # when AI integration is done, its going to call a diff function and return its response
+    return {"prompt": prompt.text}
 
 
 
