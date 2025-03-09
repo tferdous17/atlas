@@ -43,10 +43,13 @@ export function AppSidebar() {
           </span>
         </Link>
       </div>
-      <button className="mt-3 mb-2 w-full py-2 px-4 bg-blue-600 text-white hover:bg-blue-700 cursor-pointer flex items-center justify-center space-x-3">
-        <Plus size={20} />
-        <span>New Roadmap</span>
-      </button>
+      <Link to={"/chat"} onClick={() => window.location.reload()}>
+        <div className="mt-3 mb-2 w-full py-2 px-4 bg-blue-600 text-white hover:bg-blue-700 cursor-pointer flex items-center justify-center space-x-3">
+          <Plus size={20} />
+          <span>New Roadmap</span>
+        </div>
+      </Link>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Your Past Roadmaps</SidebarGroupLabel>
