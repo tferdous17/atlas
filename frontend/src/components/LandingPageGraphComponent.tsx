@@ -153,10 +153,10 @@ const initialNodes = [
 
   {
     id: 'horizontal-9',
-    sourcePosition: 'left',
+    sourcePosition: 'right',
     targetPosition: 'left',
     data: { label: 'Deployment' },
-    position: { x: 980, y: 50 },
+    position: { x: 750, y: 150 },
     style: {
       backgroundColor: '#FFFFFF',
       borderRadius: '10px',
@@ -168,6 +168,25 @@ const initialNodes = [
       textAlign: 'center',
     },
   },
+
+  {
+    id: 'horizontal-10',
+    sourcePosition: 'bottom',
+    targetPosition: 'bottom',
+    data: { label: 'Launch' },
+    position: { x: 960, y: 75 },
+    style: {
+      background: 'linear-gradient(to right, #2563EB, #1D4ED8)', // Blue gradient
+      color: 'white',
+      fontWeight: 'bold',
+      borderRadius: '12px',
+      padding: '12px',
+      border: 'none',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+      textAlign: 'center',
+    },
+  },
+
 
   
 ];
@@ -185,6 +204,8 @@ const initialEdges = [
   { id: 'horizontal-e3-10', source: 'horizontal-5', type: 'smoothstep', target: 'horizontal-8', animated: true },
   { id: 'horizontal-e3-11', source: 'horizontal-6', type: 'smoothstep', target: 'horizontal-8', animated: true },
   { id: 'horizontal-e3-12', source: 'horizontal-8', type: 'smoothstep', target: 'horizontal-9', animated: true },
+  { id: 'horizontal-e3-13', source: 'horizontal-9', type: 'smoothstep', target: 'horizontal-10', animated: true },
+
 
 ];
 
