@@ -1,5 +1,4 @@
-import { MarkerType } from "@xyflow/react";
-import { arrowStyles, colors, styles } from "./mockStyles";
+import { arrowStyles, colors } from "./mockStyles";
 import ProjectNode from "@/components/nodes/main/ProjectNode";
 import FrontendParentNode from "@/components/nodes/main/FE/FrontendParentNode";
 import FrontendChildNode from "@/components/nodes/main/FE/FrontendChildNode";
