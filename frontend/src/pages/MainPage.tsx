@@ -1,9 +1,9 @@
-import AppSidebar from "@/components/ui/app-sidebar";
 import { useState } from "react";
 import axios from "axios";
 
 const MainPage = () => {
   const [prompt, setPrompt] = useState("");
+  const [roadmapData, setRoadmapData] = useState<any>(null);
 
   const handlePromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPrompt(e.target.value);
@@ -11,15 +11,35 @@ const MainPage = () => {
 
   const sendRequest = () => {
     if (!prompt.trim()) return;
+
     axios
-      .post("http://127.0.0.1:8000/api/generate-map", {
-        text: prompt,
-      })
+      .post("http://127.0.0.1:8000/api/generate-map", { text: prompt })
       .then((res) => {
-        console.log(res);
+        const data = {
+          edges: res.data.edges || [],
+          nodes: res.data.nodes
+            ? res.data.nodes.map((node: any) => ({
+                id: node.id,
+                label: node.label,
+                position: {
+                  color: node.color || "#000000",
+                  id: node.id,
+                  label: node.label,
+                  parent: node.parent || "",
+                  position: {
+                    x: node.position?.x || 0,
+                    y: node.position?.y || 0,
+                  },
+                },
+              }))
+            : [],
+          parent_node: res.data.parent_node || [],
+          project_name: res.data.project_name || "Untitled Project",
+        };
+        setRoadmapData(data); 
       })
       .catch((error) => {
-        console.error(error);
+        console.error("API Error:", error);
       });
 
     setPrompt("");
@@ -43,7 +63,6 @@ const MainPage = () => {
 
   return (
     <div className="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
-      {/* <AppSidebar /> */}
       <div className="flex h-screen flex-col flex-grow justify-center">
         <div className="flex flex-col w-full pb-4">
           <div className="relative max-w-3xl mx-auto">
@@ -57,11 +76,7 @@ const MainPage = () => {
               className="w-full p-4 pr-12 rounded-lg border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
               placeholder="Input your project idea..."
               rows={1}
-              style={{
-                minHeight: "56px",
-                maxHeight: "200px",
-                minWidth: "750px",
-              }}
+              style={{ minHeight: "56px", maxHeight: "200px", minWidth: "750px" }}
             />
             <button
               className={`absolute right-3 bottom-2.5 p-1 rounded-md ${
@@ -92,6 +107,12 @@ const MainPage = () => {
             Describe your idea as best as possible, and then let us do the rest.
           </p>
         </div>
+        {roadmapData && (
+          <div className="max-w-3xl mx-auto bg-gray-100 p-4 rounded-md shadow-md">
+            <h2 className="text-lg font-semibold">Generated Roadmap</h2>
+            <pre className="text-xs text-gray-700">{JSON.stringify(roadmapData, null, 2)}</pre>
+          </div>
+        )}
       </div>
     </div>
   );
