@@ -446,8 +446,6 @@ export default function GraphComponent() {
               <Button onClick={() => addTechnology("ml", "Scikit-learn")}>
                 Add ML Tech
               </Button>
-
-              <Button onClick={sendRequest}>Generate Data</Button>
             </div>
           </Panel>
         </ReactFlow>

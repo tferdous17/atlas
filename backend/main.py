@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from typing import Annotated, Dict
 from generate_roadmap import generate_roadmap, store_roadmap, query_roadmap
 import uuid
+from fastapi.middleware.cors import CORSMiddleware
 
 '''
 -POST /api/generateMap
@@ -11,6 +12,14 @@ import uuid
 '''
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Allow requests from frontend
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"], 
+)
 cache: Dict[str, dict] = {}
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
