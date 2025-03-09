@@ -250,7 +250,7 @@ const LandingPageGraphComponent = () => {
               );
               return [...filteredNodes, node];
             });
-          }, index * 350);
+          }, index * 250);
         });
       }, 300);
 
