@@ -333,10 +333,19 @@ const LandingPageGraphComponent = () => {
           includeHiddenNodes: true,
           duration: 0  // Disable animated transitions for fitView
         }}
-        minZoom={0.5}
-        maxZoom={1.5}
         defaultViewport={{ x: 0, y: 0, zoom: 1}}
         attributionPosition="bottom-left"
+        zoomOnScroll={false}  // Disable zooming on scroll
+        zoomOnPinch={false}   // Disable zooming on pinch
+        zoomOnDoubleClick={false}  // Disable zooming on double click
+        panOnScroll={false}   // Disable panning on scroll 
+        panOnDrag={false}     // Optional: disable panning on drag if you want to completely fix the position
+        preventScrolling={false}  // Allow normal scrolling behavior
+        nodesDraggable={false}    // Prevent nodes from being dragged
+        nodesConnectable={false}  // Prevent nodes from being connected
+        elementsSelectable={false} // Prevent elements from being selected
+        style={{ cursor: 'default' }} // Set default cursor style
+
       >
         <Background 
           color="#e5e7eb" 
