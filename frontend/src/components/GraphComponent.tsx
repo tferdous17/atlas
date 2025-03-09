@@ -67,9 +67,7 @@ export default function GraphComponent({ dataNodes, dataEdges }) {
     const edges = [...inputEdges];
 
     const projectNode = nodes.find((node) => node.type === "projectNode");
-    const frontendNode = nodes.find(
-      (node) => node.type === "frontendParentNode"
-    );
+    const frontendNode = nodes.find((node) => node.type === "frontendParentNode");
     const backendNode = nodes.find((node) => node.type === "backendParentNode");
     const mlNode = nodes.find((node) => node.type === "machineParentNode");
 
@@ -124,6 +122,8 @@ export default function GraphComponent({ dataNodes, dataEdges }) {
     const parentY = parentNode.position.y;
     const parentDim = getNodeDimensions(parentNode.type);
 
+    // Define spacing for horizontal distribution
+    const spacing = 120;
     const totalChildCount = directChildNodes.length;
     const totalWidth = (totalChildCount - 1) * spacing;
 
@@ -153,12 +153,12 @@ export default function GraphComponent({ dataNodes, dataEdges }) {
     const parentY = parentNode.position.y;
     const parentDim = getNodeDimensions(parentNode.type);
 
-    const spacing = 80; 
+    const spacing = 80;
     const totalChildCount = directChildNodes.length;
     const totalHeight = (totalChildCount - 1) * spacing;
 
     const startY = parentY - totalHeight / 2;
-    const nodeDistance = 120; 
+    const nodeDistance = 120;
 
     directChildNodes.forEach((node, index) => {
       const nodeIndex = nodes.findIndex((n) => n.id === node.id);
@@ -188,7 +188,6 @@ export default function GraphComponent({ dataNodes, dataEdges }) {
     const startX = parentX - totalWidth / 2;
     const nodeDistance = 120;
 
-    // Position nodes in a straight horizontal line below the parent
     directChildNodes.forEach((node, index) => {
       const nodeIndex = nodes.findIndex((n) => n.id === node.id);
       nodes[nodeIndex].position = {

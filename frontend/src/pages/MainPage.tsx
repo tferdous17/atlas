@@ -5,27 +5,26 @@ import { SlideTabsExample } from "@/components/ui/Navbar";
 import AppSidebar from "@/components/ui/app-sidebar";
 
 const SuggestionPrompts = ({ onSuggestionClick }) => {
-    const [suggestions] = useState([
-      "I want to build my own Twitter clone ↗",
-      "Let's recreate Apache Kafka! ↗",
-      "I want to create a portfolio site ↗",
-    ]);
-  
-    return (
-      <div className="flex flex-wrap gap-2 mt-3 mb-4 px-4 max-w-3xl mx-auto flex items-center justify-center">
-        {suggestions.map((suggestion, index) => (
-          <button
-            key={index}
-            onClick={() => onSuggestionClick(suggestion)}
-            className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded-full transition-colors duration-200 border border-gray-300 flex items-center cursor-pointer"
-          >
-            <span className="truncate max-w-xs">{suggestion}</span>
-          </button>
-        ))}
-      </div>
-    );
-  };
+  const [suggestions] = useState([
+    "I want to build my own Twitter clone ↗",
+    "Let's recreate Apache Kafka! ↗",
+    "I want to create a portfolio site ↗",
+  ]);
 
+  return (
+    <div className="flex flex-wrap gap-2 mt-3 mb-4 px-4 max-w-3xl mx-auto flex items-center justify-center">
+      {suggestions.map((suggestion, index) => (
+        <button
+          key={index}
+          onClick={() => onSuggestionClick(suggestion)}
+          className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded-full transition-colors duration-200 border border-gray-300 flex items-center cursor-pointer"
+        >
+          <span className="truncate max-w-xs">{suggestion}</span>
+        </button>
+      ))}
+    </div>
+  );
+};
 
 const MainPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -136,9 +135,20 @@ const MainPage = () => {
               </button>
             </div>
             <p className="text-xs text-gray-500 text-center mt-2">
-              Describe your project idea, and we'll visualize the entire tech stack for you — step by step. 🚀
+              Describe your project idea, and we'll visualize the entire tech
+              stack for you — step by step. 🚀
             </p>
-          <SuggestionPrompts onSuggestionClick={(suggestion: string) => setPrompt(suggestion.substring(0, suggestion.length - 1))}/>
+            <SuggestionPrompts
+              onSuggestionClick={(suggestion: string) =>
+                setPrompt(suggestion.substring(0, suggestion.length - 1))
+              }
+            />
+          </div>
+        )}
+        {searchSubmitted && !roadmapData && (
+          <div className="flex flex-col items-center justify-center h-full">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-600"></div>
+            <p className="mt-4 text-xl text-gray-700">Generating roadmap...</p>
           </div>
         )}
         {roadmapData && (
