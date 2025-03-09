@@ -1,0 +1,167 @@
+{
+    "project_name": "Full-Stack Twitter Clone using Vue.js",
+    "id": "47cb8f81-67a3-4d5a-82cb-69d4f4c3a5b8",
+    "parent_nodes": [
+        "Frontend",
+        "Backend"
+    ],
+    "nodes": [
+        {
+            "id": "javascript",
+            "label": "JavaScript",
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "parent": "Frontend",
+            "color": "#f7df1e"
+        },
+        {
+            "id": "html_css",
+            "label": "HTML & CSS",
+            "position": {
+                "x": 0,
+                "y": 100
+            },
+            "parent": "Frontend",
+            "color": "#264de4"
+        },
+        {
+            "id": "vuejs",
+            "label": "Vue.js",
+            "position": {
+                "x": 150,
+                "y": 0
+            },
+            "parent": "Frontend",
+            "color": "#42b883"
+        },
+        {
+            "id": "nodejs",
+            "label": "Node.js",
+            "position": {
+                "x": 300,
+                "y": 0
+            },
+            "parent": "Backend",
+            "color": "#339933"
+        },
+        {
+            "id": "expressjs",
+            "label": "Express.js",
+            "position": {
+                "x": 450,
+                "y": 0
+            },
+            "parent": "Backend",
+            "color": "#000000"
+        },
+        {
+            "id": "mongodb",
+            "label": "MongoDB",
+            "position": {
+                "x": 600,
+                "y": 0
+            },
+            "parent": "Backend",
+            "color": "#4db33d"
+        },
+        {
+            "id": "mongoose",
+            "label": "Mongoose",
+            "position": {
+                "x": 750,
+                "y": 0
+            },
+            "parent": "Backend",
+            "color": "#880000"
+        },
+        {
+            "id": "auth_jwt",
+            "label": "Authentication with JWT",
+            "position": {
+                "x": 900,
+                "y": 0
+            },
+            "parent": "Backend",
+            "color": "#d04a34"
+        },
+        {
+            "id": "rest_api",
+            "label": "REST API",
+            "position": {
+                "x": 1050,
+                "y": 0
+            },
+            "parent": "Backend",
+            "color": "#ff6a00"
+        },
+        {
+            "id": "docker",
+            "label": "Docker",
+            "position": {
+                "x": 1200,
+                "y": 0
+            },
+            "parent": "Backend",
+            "color": "#2496ed"
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "javascript",
+            "target": "vuejs"
+        },
+        {
+            "id": "e2",
+            "source": "html_css",
+            "target": "vuejs"
+        },
+        {
+            "id": "e3",
+            "source": "nodejs",
+            "target": "expressjs"
+        },
+        {
+            "id": "e4",
+            "source": "expressjs",
+            "target": "mongodb"
+        },
+        {
+            "id": "e5",
+            "source": "mongodb",
+            "target": "mongoose"
+        },
+        {
+            "id": "e6",
+            "source": "expressjs",
+            "target": "auth_jwt"
+        },
+        {
+            "id": "e7",
+            "source": "expressjs",
+            "target": "rest_api"
+        },
+        {
+            "id": "e8",
+            "source": "rest_api",
+            "target": "auth_jwt"
+        },
+        {
+            "id": "e9",
+            "source": "auth_jwt",
+            "target": "mongoose"
+        },
+        {
+            "id": "e10",
+            "source": "expressjs",
+            "target": "docker"
+        },
+        {
+            "id": "e11",
+            "source": "vuejs",
+            "target": "rest_api"
+        }
+    ]
+}
