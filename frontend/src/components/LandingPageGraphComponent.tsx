@@ -1,13 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
+
 import {
   Background,
   ReactFlow,
-  Controls,
   useNodesState,
   useEdgesState,
   addEdge,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import { motion } from 'framer-motion';
+
 
 const initialNodes = [
   {
@@ -78,8 +81,6 @@ const initialNodes = [
       textAlign: 'center',
     },
   },
-
-  
   {
     id: 'horizontal-5',
     sourcePosition: 'right',
@@ -114,7 +115,6 @@ const initialNodes = [
       textAlign: 'center',
     },
   },
-
   {
     id: 'horizontal-7',
     sourcePosition: 'right',
@@ -132,7 +132,6 @@ const initialNodes = [
       textAlign: 'center',
     },
   },
-
   {
     id: 'horizontal-8',
     sourcePosition: 'right',
@@ -150,7 +149,6 @@ const initialNodes = [
       textAlign: 'center',
     },
   },
-
   {
     id: 'horizontal-9',
     sourcePosition: 'right',
@@ -168,7 +166,6 @@ const initialNodes = [
       textAlign: 'center',
     },
   },
-
   {
     id: 'horizontal-10',
     sourcePosition: 'bottom',
@@ -186,9 +183,6 @@ const initialNodes = [
       textAlign: 'center',
     },
   },
-
-
-  
 ];
 
 const initialEdges = [
@@ -198,45 +192,159 @@ const initialEdges = [
   { id: 'horizontal-e3-5', source: 'horizontal-3', type: 'smoothstep', target: 'horizontal-5', animated: true },
   { id: 'horizontal-e3-6', source: 'horizontal-3', type: 'smoothstep', target: 'horizontal-6', animated: true },
   { id: 'horizontal-e3-7', source: 'horizontal-2', type: 'smoothstep', target: 'horizontal-7', animated: true },
-
   { id: 'horizontal-e3-8', source: 'horizontal-4', type: 'smoothstep', target: 'horizontal-8', animated: true },
   { id: 'horizontal-e3-9', source: 'horizontal-7', type: 'smoothstep', target: 'horizontal-8', animated: true },
   { id: 'horizontal-e3-10', source: 'horizontal-5', type: 'smoothstep', target: 'horizontal-8', animated: true },
   { id: 'horizontal-e3-11', source: 'horizontal-6', type: 'smoothstep', target: 'horizontal-8', animated: true },
   { id: 'horizontal-e3-12', source: 'horizontal-8', type: 'smoothstep', target: 'horizontal-9', animated: true },
   { id: 'horizontal-e3-13', source: 'horizontal-9', type: 'smoothstep', target: 'horizontal-10', animated: true },
-
-
 ];
 
+// Create invisible placeholder nodes that define the full viewport from the start
+const placeholderNodes = [
+  {
+    id: 'placeholder-1',
+    position: { x: 60, y: -100 },
+    style: { opacity: 0, width: 1, height: 1 },
+    type: 'default',
+    data: { label: '' },
+  },
+  {
+    id: 'placeholder-2',
+    position: { x: 1010, y: 280 },
+    style: { opacity: 0, width: 1, height: 1 },
+    type: 'default',
+    data: { label: '' },
+  }
+];
 const LandingPageGraphComponent = () => {
-  const [nodes, _, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  
+  // Add this to track when component is in view
+  const { ref: inViewRef, inView } = useInView({
+    threshold: 0.3, // Trigger when 30% of the component is visible
+    triggerOnce: true // Only trigger once
+  });
+  
   const onConnect = useCallback(
     (params) => setEdges((els) => addEdge(params, els)),
     []
   );
 
+  // Start animation only when in view
+  useEffect(() => {
+    if (inView && !hasAnimated) {
+      setHasAnimated(false);
+      setNodes(placeholderNodes);
+      
+      // Then add real nodes one by one with animation
+      const nodeTimeout = setTimeout(() => {
+        initialNodes.forEach((node, index) => {
+          setTimeout(() => {
+            setNodes((prevNodes) => {
+              // Keep placeholders during animation
+              const filteredNodes = prevNodes.filter(n => 
+                !n.id.startsWith('placeholder') || index < initialNodes.length - 1
+              );
+              return [...filteredNodes, node];
+            });
+          }, index * 350);
+        });
+      }, 300);
+
+      // Add edges with animation
+      const edgeTimeout = setTimeout(() => {
+        initialEdges.forEach((edge, index) => {
+          setTimeout(() => {
+            setEdges((prevEdges) => [...prevEdges, edge]);
+          }, index * 100);
+        });
+      }, 1800);
+      
+      return () => {
+        clearTimeout(nodeTimeout);
+        clearTimeout(edgeTimeout);
+      };
+    }
+  }, [inView, hasAnimated, setNodes, setEdges]);
+
+  // Add hover effects to nodes
+  const onNodeMouseEnter = useCallback((_, node) => {
+    if (node.id.startsWith('placeholder')) return;
+    
+    setNodes((nds) =>
+      nds.map((n) => {
+        if (n.id === node.id) {
+          return {
+            ...n,
+            style: {
+              ...n.style,
+              transform: 'scale(1)',
+              boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
+              transition: 'all 0.3s ease',
+              zIndex: 1000,
+            },
+          };
+        }
+        return n;
+      })
+    );
+  }, [setNodes]);
+
+  const onNodeMouseLeave = useCallback((_, node) => {
+    if (node.id.startsWith('placeholder')) return;
+    
+    setNodes((nds) =>
+      nds.map((n) => {
+        if (n.id === node.id) {
+          // Reset to original style
+          const originalNode = initialNodes.find(initial => initial.id === n.id);
+          return {
+            ...n,
+            style: originalNode?.style || n.style,
+          };
+        }
+        return n;
+      })
+    );
+  }, [setNodes]);
+
   return (
-    <div className="w-full h-[500px]">
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      fitView
-      attributionPosition="bottom-left"
+    <motion.div 
+      className="w-full h-[500px]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: inView ? 1 : 0 }}
+      transition={{ duration: 0.8 }}
+      ref={inViewRef}  // Add the ref here to track visibility
     >
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onNodeMouseEnter={onNodeMouseEnter}
+        onNodeMouseLeave={onNodeMouseLeave}
+        fitView
+        fitViewOptions={{
+          padding: 0,
+          includeHiddenNodes: true,
+          duration: 0  // Disable animated transitions for fitView
+        }}
+        minZoom={0.5}
+        maxZoom={1.5}
+        defaultViewport={{ x: 0, y: 0, zoom: 1}}
+        attributionPosition="bottom-left"
+      >
         <Background 
           color="#e5e7eb" 
           gap={16} 
           size={1} 
         />
-
-
-    </ReactFlow>
-    </div>
+      </ReactFlow>
+    </motion.div>
   );
 };
 
