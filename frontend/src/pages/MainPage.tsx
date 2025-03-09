@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import GraphComponent from "@/components/GraphComponent";
 
 const MainPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -19,21 +20,16 @@ const MainPage = () => {
           edges: res.data.edges || [],
           nodes: res.data.nodes
             ? res.data.nodes.map((node: any) => ({
+                data: { label: node.data.label },
                 id: node.id,
-                label: node.label,
+                label: node.data.label,
                 position: {
-                  color: node.color || "#000000",
-                  id: node.id,
-                  label: node.label,
-                  parent: node.parent || "",
-                  position: {
                     x: node.position?.x || 0,
                     y: node.position?.y || 0,
-                  },
                 },
+                type: node.type
               }))
             : [],
-          parent_node: res.data.parent_node || [],
           project_name: res.data.project_name || "Untitled Project",
         };
         setRoadmapData(data); 
@@ -108,10 +104,7 @@ const MainPage = () => {
           </p>
         </div>
         {roadmapData && (
-          <div className="max-w-3xl mx-auto bg-gray-100 p-4 rounded-md shadow-md">
-            <h2 className="text-lg font-semibold">Generated Roadmap</h2>
-            <pre className="text-xs text-gray-700">{JSON.stringify(roadmapData, null, 2)}</pre>
-          </div>
+          <GraphComponent dataNodes = {roadmapData.nodes}  dataEdges = {roadmapData.edges}/>
         )}
       </div>
     </div>

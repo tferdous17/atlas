@@ -1,5 +1,5 @@
 import { MarkerType } from "@xyflow/react";
-import { colors, styles } from "./mockStyles";
+import { arrowStyles, colors, styles } from "./mockStyles";
 import ProjectNode from "@/components/nodes/main/ProjectNode";
 import FrontendParentNode from "@/components/nodes/main/FE/FrontendParentNode";
 import FrontendChildNode from "@/components/nodes/main/FE/FrontendChildNode";
@@ -14,32 +14,32 @@ export const nodeTypes = {
   backendParentNode: BackendParentNode,
   backendChildNode: BackendChildNode,
   machineParentNode: MachineParentNode,
-  MachineChildNode: MachineChildNode
+  machineChildNode: MachineChildNode,
 };
 export const initialNodes = [
   {
     id: "0",
     data: { label: "Flux" },
     position: { x: 400, y: 400 },
-    type: "projectNode"
+    type: "projectNode",
   },
   {
     id: "1",
     data: { label: "Frontend" },
     position: { x: 400, y: 180 },
-    type: "frontendParentNode"
+    type: "frontendParentNode",
   },
   {
     id: "2",
     data: { label: "Backend" },
     position: { x: 620, y: 400 },
-    type: "backendParentNode"
+    type: "backendParentNode",
   },
   {
     id: "3",
     data: { label: "Machine Learning" },
     position: { x: 400, y: 620 },
-    type: "machineParentNode"
+    type: "machineParentNode",
   },
 
   // Frontend Children
@@ -61,20 +61,20 @@ export const initialNodes = [
     id: "7",
     data: { label: "Node.js" },
     position: { x: 900, y: 340 },
-    type: "backendChildNode"
+    type: "backendChildNode",
   },
 
   {
     id: "8",
     data: { label: "Database" },
     position: { x: 900, y: 400 },
-    type: "backendChildNode"
+    type: "backendChildNode",
   },
   {
     id: "9",
     data: { label: "REST API" },
     position: { x: 900, y: 460 },
-    type: "backendChildNode"
+    type: "backendChildNode",
   },
 
   // ML Children
@@ -82,13 +82,13 @@ export const initialNodes = [
     id: "10",
     data: { label: "TensorFlow" },
     position: { x: 350, y: 800 },
-    type: "MachineChildNode"
+    type: "machineChildNode",
   },
   {
     id: "11",
     data: { label: "PyTorch" },
     position: { x: 460, y: 800 },
-    type: "MachineChildNode"
+    type: "machineChildNode",
   },
 ];
 
@@ -101,10 +101,8 @@ export const initialEdges = [
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.mainEdgeColor,
-      width: 20,
-      height: 20,
+      ...arrowStyles,
     },
     zIndex: 1,
   },
@@ -116,15 +114,11 @@ export const initialEdges = [
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.mainEdgeColor,
-      width: 20,
-      height: 20,
+      ...arrowStyles,
     },
     zIndex: 1,
   },
-
-  // Flux to Machine Learning 
   {
     id: "e0-3",
     source: "0",
@@ -133,10 +127,8 @@ export const initialEdges = [
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.mainEdgeColor,
-      width: 20,
-      height: 20,
+      ...arrowStyles,
     },
     zIndex: 1,
   },
@@ -148,10 +140,8 @@ export const initialEdges = [
     target: "5",
     style: { stroke: colors.frontendChild, strokeWidth: 2.5 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.frontendChild,
-      width: 15,
-      height: 15,
+      ...arrowStyles,
     },
     zIndex: 0,
   },
@@ -161,10 +151,8 @@ export const initialEdges = [
     target: "6",
     style: { stroke: colors.frontendChild, strokeWidth: 2.5 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.frontendChild,
-      width: 15,
-      height: 15,
+      ...arrowStyles,
     },
     zIndex: 0,
   },
@@ -176,10 +164,8 @@ export const initialEdges = [
     target: "7",
     style: { stroke: colors.backendChild, strokeWidth: 2.5 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.backendChild,
-      width: 15,
-      height: 15,
+      ...arrowStyles,
     },
     zIndex: 0,
   },
@@ -189,10 +175,8 @@ export const initialEdges = [
     target: "8",
     style: { stroke: colors.backendChild, strokeWidth: 2.5 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.backendChild,
-      width: 15,
-      height: 15,
+      ...arrowStyles,
     },
     zIndex: 0,
   },
@@ -202,10 +186,8 @@ export const initialEdges = [
     target: "9",
     style: { stroke: colors.backendChild, strokeWidth: 2.5 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.backendChild,
-      width: 15,
-      height: 15,
+      ...arrowStyles,
     },
     zIndex: 0,
   },
@@ -217,10 +199,8 @@ export const initialEdges = [
     target: "10",
     style: { stroke: colors.mlChild, strokeWidth: 2.5 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.mlChild,
-      width: 15,
-      height: 15,
+      ...arrowStyles,
     },
     zIndex: 0,
   },
@@ -230,10 +210,8 @@ export const initialEdges = [
     target: "11",
     style: { stroke: colors.mlChild, strokeWidth: 2.5 },
     markerEnd: {
-      type: MarkerType.ArrowClosed,
       color: colors.mlChild,
-      width: 15,
-      height: 15,
+      ...arrowStyles,
     },
     zIndex: 0,
   },

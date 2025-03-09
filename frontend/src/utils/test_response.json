@@ -1,169 +1,227 @@
 {
-    "edges": [
-      {
-        "id": "1",
-        "source": "html",
-        "target": "css"
-      },
-      {
-        "id": "2",
-        "source": "css",
-        "target": "javascript"
-      },
-      {
-        "id": "3",
-        "source": "javascript",
-        "target": "vuejs"
-      },
-      {
-        "id": "4",
-        "source": "nodejs",
-        "target": "expressjs"
-      },
-      {
-        "id": "5",
-        "source": "expressjs",
-        "target": "mongodb"
-      },
-      {
-        "id": "6",
-        "source": "mongodb",
-        "target": "mongoose"
-      },
-      {
-        "id": "7",
-        "source": "expressjs",
-        "target": "auth0"
-      }
-    ],
     "nodes": [
-      {
-        "id": "html",
-        "label": "HTML",
-        "position": {
-          "color": "#FF7043",
-          "id": "html",
-          "label": "HTML",
-          "parent": "frontend",
-          "position": {
-            "x": 0,
-            "y": 0
-          }
+        {
+            "id": "0",
+            "data": {
+                "label": "Flux"
+            },
+            "position": {
+                "x": 400,
+                "y": 400
+            },
+            "type": "projectNode"
+        },
+        {
+            "id": "1",
+            "data": {
+                "label": "Frontend"
+            },
+            "position": {
+                "x": 400,
+                "y": 180
+            },
+            "type": "frontendParentNode"
+        },
+        {
+            "id": "2",
+            "data": {
+                "label": "Backend"
+            },
+            "position": {
+                "x": 620,
+                "y": 400
+            },
+            "type": "backendParentNode"
+        },
+        {
+            "id": "3",
+            "data": {
+                "label": "Machine Learning"
+            },
+            "position": {
+                "x": 400,
+                "y": 620
+            },
+            "type": "machineParentNode"
+        },
+        {
+            "id": "4",
+            "data": {
+                "label": "JavaScript"
+            },
+            "position": {
+                "x": 400,
+                "y": 80
+            },
+            "type": "frontendChildNode"
+        },
+        {
+            "id": "5",
+            "data": {
+                "label": "Vue.js"
+            },
+            "position": {
+                "x": 300,
+                "y": 80
+            },
+            "type": "frontendChildNode"
+        },
+        {
+            "id": "6",
+            "data": {
+                "label": "Vuex"
+            },
+            "position": {
+                "x": 500,
+                "y": 80
+            },
+            "type": "frontendChildNode"
+        },
+        {
+            "id": "7",
+            "data": {
+                "label": "HTML & CSS"
+            },
+            "position": {
+                "x": 400,
+                "y": 20
+            },
+            "type": "frontendChildNode"
+        },
+        {
+            "id": "8",
+            "data": {
+                "label": "Node.js"
+            },
+            "position": {
+                "x": 720,
+                "y": 320
+            },
+            "type": "backendChildNode"
+        },
+        {
+            "id": "9",
+            "data": {
+                "label": "Express.js"
+            },
+            "position": {
+                "x": 820,
+                "y": 320
+            },
+            "type": "backendChildNode"
+        },
+        {
+            "id": "10",
+            "data": {
+                "label": "MongoDB"
+            },
+            "position": {
+                "x": 720,
+                "y": 480
+            },
+            "type": "backendChildNode"
+        },
+        {
+            "id": "11",
+            "data": {
+                "label": "REST API"
+            },
+            "position": {
+                "x": 820,
+                "y": 480
+            },
+            "type": "backendChildNode"
         }
-      },
-      {
-        "id": "css",
-        "label": "CSS",
-        "position": {
-          "color": "#FF7043",
-          "id": "css",
-          "label": "CSS",
-          "parent": "frontend",
-          "position": {
-            "x": 0,
-            "y": 100
-          }
-        }
-      },
-      {
-        "id": "javascript",
-        "label": "JavaScript",
-        "position": {
-          "color": "#FF7043",
-          "id": "javascript",
-          "label": "JavaScript",
-          "parent": "frontend",
-          "position": {
-            "x": 0,
-            "y": 200
-          }
-        }
-      },
-      {
-        "id": "vuejs",
-        "label": "Vue.js",
-        "position": {
-          "color": "#FF7043",
-          "id": "vuejs",
-          "label": "Vue.js",
-          "parent": "frontend",
-          "position": {
-            "x": 0,
-            "y": 300
-          }
-        }
-      },
-      {
-        "id": "nodejs",
-        "label": "Node.js",
-        "position": {
-          "color": "#4CAF50",
-          "id": "nodejs",
-          "label": "Node.js",
-          "parent": "backend",
-          "position": {
-            "x": 300,
-            "y": 0
-          }
-        }
-      },
-      {
-        "id": "expressjs",
-        "label": "Express.js",
-        "position": {
-          "color": "#4CAF50",
-          "id": "expressjs",
-          "label": "Express.js",
-          "parent": "backend",
-          "position": {
-            "x": 300,
-            "y": 100
-          }
-        }
-      },
-      {
-        "id": "mongodb",
-        "label": "MongoDB",
-        "position": {
-          "color": "#4CAF50",
-          "id": "mongodb",
-          "label": "MongoDB",
-          "parent": "backend",
-          "position": {
-            "x": 300,
-            "y": 200
-          }
-        }
-      },
-      {
-        "id": "mongoose",
-        "label": "Mongoose",
-        "position": {
-          "color": "#4CAF50",
-          "id": "mongoose",
-          "label": "Mongoose",
-          "parent": "backend",
-          "position": {
-            "x": 300,
-            "y": 300
-          }
-        }
-      },
-      {
-        "id": "auth0",
-        "label": "Auth0",
-        "position": {
-          "color": "#4CAF50",
-          "id": "auth0",
-          "label": "Auth0",
-          "parent": "backend",
-          "position": {
-            "x": 300,
-            "y": 400
-          }
-        }
-      }
     ],
-    "parent_node": [],
-    "project_name": "Full-Stack Twitter Clone with Vue.js"
-  }
+    "edges": [
+        {
+            "id": "e0-1",
+            "source": "0",
+            "target": "1",
+            "sourceHandle": "top",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e0-2",
+            "source": "0",
+            "target": "2",
+            "sourceHandle": "right",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e0-3",
+            "source": "0",
+            "target": "3",
+            "sourceHandle": "bottom",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e1-4",
+            "source": "1",
+            "target": "4",
+            "sourceHandle": "top",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e4-5",
+            "source": "4",
+            "target": "5",
+            "sourceHandle": "right",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e5-6",
+            "source": "5",
+            "target": "6",
+            "sourceHandle": "right",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e4-7",
+            "source": "4",
+            "target": "7",
+            "sourceHandle": "left",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e2-8",
+            "source": "2",
+            "target": "8",
+            "sourceHandle": "left",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e8-9",
+            "source": "8",
+            "target": "9",
+            "sourceHandle": "right",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e8-10",
+            "source": "8",
+            "target": "10",
+            "sourceHandle": "left",
+            "animated": true,
+            "zIndex": 1
+        },
+        {
+            "id": "e9-11",
+            "source": "9",
+            "target": "11",
+            "sourceHandle": "right",
+            "animated": true,
+            "zIndex": 1
+        }
+    ],
+    "id": "adaf35de-bca5-4640-8ef1-e6127e29765e"
+}

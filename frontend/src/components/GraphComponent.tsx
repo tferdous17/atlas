@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import {
   ReactFlow,
   useNodesState,
@@ -8,35 +8,37 @@ import {
   Controls,
   MarkerType,
   ReactFlowProvider,
-  Panel,
 } from "@xyflow/react";
-import dagre from "dagre";
-import { initialEdges, initialNodes, nodeTypes } from "@/utils/mockdata";
+import { nodeTypes } from "@/utils/mockdata";
 import { colors } from "@/utils/mockStyles";
-import { Button } from "@/components/ui/button";
 
-export default function GraphComponent() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+export default function GraphComponent({ dataNodes, dataEdges }) {
+  const [loading, setLoading] = useState(true);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   const onConnect = useCallback(
-    (params) =>
-      setEdges((eds) =>
-        addEdge(
-          {
-            ...params,
-            animated: true,
-            style: { stroke: colors.edgeColor, strokeWidth: 4 },
-            markerEnd: {
-              type: MarkerType.ArrowClosed,
-              color: colors.edgeColor,
-              width: 20,
-              height: 20,
-            },
+    (params) => {
+      setEdges((eds) => {
+        // Make sure params includes sourceHandle and targetHandle
+        const newEdge = {
+          ...params,
+          animated: true,
+          style: { stroke: colors.edgeColor, strokeWidth: 4 },
+          markerEnd: {
+            type: MarkerType.ArrowClosed,
+            color: colors.edgeColor,
+            width: 20,
+            height: 20,
           },
-          eds
-        )
-      ),
+          // Explicitly set these if they're not present in params
+          sourceHandle: params.sourceHandle || 'bottom-source',
+          targetHandle: params.targetHandle || 'top-target',
+        };
+        
+        return addEdge(newEdge, eds);
+      });
+    },
     [setEdges]
   );
 
@@ -59,24 +61,18 @@ export default function GraphComponent() {
   };
 
   // Random value within range
-  const randomInRange = (min, max) => {
+  const randomInRange = (min: number, max: number) => {
     return Math.random() * (max - min) + min;
   };
 
   // Calculate distance between two points
-  const distance = (x1, y1, x2, y2) => {
+  const distance = (x1: number, y1: number, x2: number, y2: number) => {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
   };
 
   // Check if a position is valid (not too close to parent or other nodes)
   const isValidPosition = (
-    x: any,
-    y: any,
-    parentX: any,
-    parentY: any,
-    existingPositions: any[],
-    minDistanceFromParent: number,
-    minDistanceBetweenNodes: number
+    x: any, y: any, parentX: any, parentY: any, existingPositions: any[], minDistanceFromParent: number, minDistanceBetweenNodes: number
   ) => {
     // Check distance from parent
     if (distance(x, y, parentX, parentY) < minDistanceFromParent) {
@@ -94,7 +90,11 @@ export default function GraphComponent() {
   };
 
   // Custom layout function with randomness and boundaries
-  const getCustomLayout = (inputNodes, inputEdges) => {
+  const getCustomLayout = (inputNodes: string | any[], inputEdges: { id: string; source: string; target: string; style: { stroke: string; strokeWidth: number; }; markerEnd: { type: MarkerType; color: string; width: number; height: number; }; zIndex: number; }[]) => {
+    if (!inputNodes || inputNodes.length === 0) {
+      return { nodes: [], edges: [] };
+    }
+    
     const nodes = [...inputNodes];
     const edges = [...inputEdges];
 
@@ -135,7 +135,7 @@ export default function GraphComponent() {
   };
 
   // Layout children for a specific parent node with randomness and boundaries
-  const layoutChildNodes = (nodes, edges, parentNode, sectionType) => {
+  const layoutChildNodes = (nodes: any[], edges: any[], parentNode: never, sectionType: string | undefined) => {
     if (!parentNode) return;
 
     // Find all children of this parent
@@ -195,7 +195,7 @@ export default function GraphComponent() {
     }
 
     // Keep track of positioned nodes
-    const positionedNodes = [];
+    const positionedNodes: any[] = [];
 
     // Position child nodes with randomness and boundaries
     childNodes.forEach((node, index) => {
@@ -295,160 +295,82 @@ export default function GraphComponent() {
     });
   };
 
-  // Apply layout on component mount
+  // Use separate useEffect hooks for better control
+  // Main data loading effect
   useEffect(() => {
-    const { nodes: layoutedNodes } = getCustomLayout(nodes, edges);
-    setNodes(layoutedNodes);
-  }, []);
-
-  // Function to generate nodes for new technologies
-  const addTechnology = (section, techName) => {
-    // Find the parent section node
-    let parentId;
-    let nodeType;
-    let childColor;
-
-    if (section === "frontend") {
-      parentId = "1";
-      nodeType = "frontendChildNode";
-      childColor = colors.frontendChild;
-    } else if (section === "backend") {
-      parentId = "2";
-      nodeType = "backendChildNode";
-      childColor = colors.backendChild;
-    } else if (section === "ml") {
-      parentId = "3";
-      nodeType = "MachineChildNode";
-      childColor = colors.mlChild;
+    if (dataNodes && dataEdges && Array.isArray(dataNodes) && Array.isArray(dataEdges)) {
+      setLoading(true);
+      
+      // Clone the data to avoid reference issues
+      const nodesWithPositions = dataNodes.map(node => ({
+        ...node,
+        // Ensure nodes have positions to prevent layout issues
+        position: node.position || { x: 0, y: 0 }
+      }));
+      
+      // Set data with a delay to ensure loading state is shown
+      setTimeout(() => {
+        setNodes(nodesWithPositions);
+        setEdges(dataEdges);
+        setLoading(false);
+      }, 500);
     } else {
-      return;
+      console.log("Invalid or missing data:", { dataNodes, dataEdges });
     }
+  }, [dataNodes, dataEdges]);
 
-    // Create a new node
-    const newNodeId = `${section}-${Date.now()}`;
-    const newNode = {
-      id: newNodeId,
-      data: { label: techName },
-      position: { x: 0, y: 0 }, // Position will be set by layout
-      type: nodeType,
-    };
-
-    // Create a new edge connecting to parent
-    const newEdge = {
-      id: `e${parentId}-${newNodeId}`,
-      source: parentId,
-      target: newNodeId,
-      style: { stroke: childColor, strokeWidth: 2.5 },
-      markerEnd: {
-        type: MarkerType.ArrowClosed,
-        color: childColor,
-        width: 15,
-        height: 15,
-      },
-      zIndex: 0,
-    };
-
-    // Add node and edge
-    setNodes((prev) => [...prev, newNode]);
-    setEdges((prev) => [...prev, newEdge]);
-
-    // Re-apply layout
-    setTimeout(() => {
-      const { nodes: layoutedNodes } = getCustomLayout(
-        [...nodes, newNode],
-        [...edges, newEdge]
-      );
+  // Layout effect - separate from data loading
+  useEffect(() => {
+    if (nodes.length > 0 && !loading) {
+      console.log("Applying layout to", nodes.length, "nodes");
+      const { nodes: layoutedNodes } = getCustomLayout(nodes, edges);
       setNodes(layoutedNodes);
-    }, 50);
-  };
+    }
+  }, [loading]);
 
-  // Button handler to re-apply layout with different randomness
-  const handleLayout = () => {
-    const { nodes: layoutedNodes } = getCustomLayout(nodes, edges);
-    setNodes([...layoutedNodes]);
-  };
-
-  // Add a shuffle function for more dramatic rearrangement
-  const shuffleLayout = () => {
-    // Only reposition child nodes, keep parent nodes in place
-    const newNodes = [...nodes];
-
-    // Get parent nodes
-    const parentNodes = newNodes.filter(
-      (node) =>
-        node.type === "frontendParentNode" ||
-        node.type === "backendParentNode" ||
-        node.type === "machineParentNode"
-    );
-
-    // For each parent, reposition its children
-    parentNodes.forEach((parent) => {
-      // Find child nodes via edges
-      const childEdges = edges.filter((edge) => edge.source === parent.id);
-      const childIds = childEdges.map((edge) => edge.target);
-
-      let sectionType;
-      if (parent.type === "frontendParentNode") sectionType = "frontend";
-      else if (parent.type === "backendParentNode") sectionType = "backend";
-      else if (parent.type === "machineParentNode") sectionType = "ml";
-
-      // Apply shuffled layout to just these children
-      layoutChildNodes(newNodes, edges, parent, sectionType);
-    });
-
-    setNodes([...newNodes]);
-  };
 
   return (
     <ReactFlowProvider>
-      <div className="w-full h-screen bg-slate-50">
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          nodeTypes={nodeTypes}
-          fitView
-          minZoom={0.5}
-          maxZoom={2}
-          defaultViewport={{ x: 0, y: 0, zoom: 1 }}
-          elementsSelectable={true}
-          selectNodesOnDrag={false}
-          zoomOnScroll={true}
-          panOnScroll={false}
-          connectionLineStyle={{ stroke: "#1E293B", strokeWidth: 3 }}
-          proOptions={{ hideAttribution: true }}
-        >
-          <Background
-            color="#1E1E1E"
-            gap={20}
-            size={1.5}
-            style={{ backgroundColor: colors.background }}
-          />
-          <Controls
-            position="bottom-right"
-            style={{
-              marginRight: 10,
-              marginBottom: 10,
-            }}
-          />
-          <Panel position="top-right">
-            <div className="flex flex-col gap-2">
-              <Button onClick={handleLayout}>Apply Layout</Button>
-              <Button onClick={shuffleLayout}>Shuffle Layout</Button>
-              <Button onClick={() => addTechnology("frontend", "Next.js")}>
-                Add Frontend Tech
-              </Button>
-              <Button onClick={() => addTechnology("backend", "GraphQL")}>
-                Add Backend Tech
-              </Button>
-              <Button onClick={() => addTechnology("ml", "Scikit-learn")}>
-                Add ML Tech
-              </Button>
-            </div>
-          </Panel>
-        </ReactFlow>
+      <div className="w-full h-screen bg-slate-50 relative">
+        {loading ? (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
+            <p className="ml-3 text-lg text-gray-700">Generating roadmap...</p>
+          </div>
+        ) : (
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            nodeTypes={nodeTypes}
+            fitView
+            minZoom={0.5}
+            maxZoom={2}
+            defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+            elementsSelectable={true}
+            selectNodesOnDrag={false}
+            zoomOnScroll={true}
+            panOnScroll={false}
+            connectionLineStyle={{ stroke: "#1E293B", strokeWidth: 3 }}
+            proOptions={{ hideAttribution: true }}
+          >
+            <Background
+              color="#1E1E1E"
+              gap={20}
+              size={1.5}
+              style={{ backgroundColor: colors.background }}
+            />
+            <Controls
+              position="bottom-right"
+              style={{
+                marginRight: 10,
+                marginBottom: 10,
+              }}
+            />
+          </ReactFlow>
+        )}
       </div>
     </ReactFlowProvider>
   );

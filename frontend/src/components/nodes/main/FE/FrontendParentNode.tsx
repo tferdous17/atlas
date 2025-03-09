@@ -6,13 +6,13 @@ const FrontendParentNode = ({ data }) => {
 
      <Handle 
         id="bottom"
-        type="target" 
+        type="source" 
         position={Position.Bottom} 
         className="!w-3 !h-3 !bg-black !rounded-full !absolute !bottom-[-6px] !left-1/2 !transform !-translate-x-1/2"
       />
       <Handle 
         id="top"
-        type="source" 
+        type="target" 
         position={Position.Top} 
         className="!w-3 !h-3 !bg-black !rounded-full !absolute !top-[-6px] !left-1/2 !transform !-translate-x-1/2"
       />
