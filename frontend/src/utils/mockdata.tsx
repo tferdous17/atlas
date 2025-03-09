@@ -3,10 +3,18 @@ import { colors, styles } from "./mockStyles";
 import ProjectNode from "@/components/nodes/main/ProjectNode";
 import FrontendParentNode from "@/components/nodes/main/FE/FrontendParentNode";
 import FrontendChildNode from "@/components/nodes/main/FE/FrontendChildNode";
+import BackendParentNode from "@/components/nodes/main/BE/BackendParentNode";
+import BackendChildNode from "@/components/nodes/main/BE/BackendChildNode";
+import MachineParentNode from "@/components/nodes/main/ML/MachineParentNode";
+import MachineChildNode from "@/components/nodes/main/ML/MachineChildNode";
 export const nodeTypes = {
   projectNode: ProjectNode,
   frontendParentNode: FrontendParentNode,
   frontendChildNode: FrontendChildNode,
+  backendParentNode: BackendParentNode,
+  backendChildNode: BackendChildNode,
+  machineParentNode: MachineParentNode,
+  MachineChildNode: MachineChildNode
 };
 export const initialNodes = [
   {
@@ -25,28 +33,13 @@ export const initialNodes = [
     id: "2",
     data: { label: "Backend" },
     position: { x: 620, y: 400 },
-    style: {
-      ...styles.categoryNode,
-      backgroundColor: colors.backend,
-    },
+    type: "backendParentNode"
   },
   {
     id: "3",
     data: { label: "Machine Learning" },
     position: { x: 400, y: 620 },
-    style: {
-      ...styles.categoryNode,
-      backgroundColor: colors.ml,
-    },
-  },
-  {
-    id: "4",
-    data: { label: "Methodology" },
-    position: { x: 180, y: 400 },
-    style: {
-      ...styles.categoryNode,
-      backgroundColor: colors.methodology,
-    },
+    type: "machineParentNode"
   },
 
   // Frontend Children
@@ -67,69 +60,35 @@ export const initialNodes = [
   {
     id: "7",
     data: { label: "Node.js" },
-    position: { x: 760, y: 340 },
-    style: {
-      ...styles.childNode,
-      backgroundColor: colors.backendChild,
-    },
+    position: { x: 900, y: 340 },
+    type: "backendChildNode"
   },
+
   {
     id: "8",
     data: { label: "Database" },
-    position: { x: 760, y: 400 },
-    style: {
-      ...styles.childNode,
-      backgroundColor: colors.backendChild,
-    },
+    position: { x: 900, y: 400 },
+    type: "backendChildNode"
   },
   {
     id: "9",
     data: { label: "REST API" },
-    position: { x: 760, y: 460 },
-    style: {
-      ...styles.childNode,
-      backgroundColor: colors.backendChild,
-    },
+    position: { x: 900, y: 460 },
+    type: "backendChildNode"
   },
 
   // ML Children
   {
     id: "10",
     data: { label: "TensorFlow" },
-    position: { x: 350, y: 720 },
-    style: {
-      ...styles.childNode,
-      backgroundColor: colors.mlChild,
-    },
+    position: { x: 350, y: 800 },
+    type: "MachineChildNode"
   },
   {
     id: "11",
     data: { label: "PyTorch" },
-    position: { x: 460, y: 720 },
-    style: {
-      ...styles.childNode,
-      backgroundColor: colors.mlChild,
-    },
-  },
-
-  // Methodology Children
-  {
-    id: "12",
-    data: { label: "CI/CD" },
-    position: { x: 120, y: 340 },
-    style: {
-      ...styles.childNode,
-      backgroundColor: colors.methodologyChild,
-    },
-  },
-  {
-    id: "13",
-    data: { label: "GitHub Actions" },
-    position: { x: 120, y: 460 },
-    style: {
-      ...styles.childNode,
-      backgroundColor: colors.methodologyChild,
-    },
+    position: { x: 460, y: 800 },
+    type: "MachineChildNode"
   },
 ];
 
@@ -138,7 +97,7 @@ export const initialEdges = [
     id: "e0-1",
     source: "0",
     target: "1",
-    sourceHandle: "top", // Specifying the top handle
+    sourceHandle: "top",
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
@@ -153,7 +112,7 @@ export const initialEdges = [
     id: "e0-2",
     source: "0",
     target: "2",
-    sourceHandle: "right", // Specifying the right handle
+    sourceHandle: "right",
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
@@ -164,12 +123,13 @@ export const initialEdges = [
     },
     zIndex: 1,
   },
-  // Flux to Machine Learning (using BOTTOM handle)
+
+  // Flux to Machine Learning 
   {
     id: "e0-3",
     source: "0",
     target: "3",
-    sourceHandle: "bottom", // Specifying the bottom handle
+    sourceHandle: "bottom",
     animated: true,
     style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
     markerEnd: {
@@ -180,24 +140,7 @@ export const initialEdges = [
     },
     zIndex: 1,
   },
-  // Flux to Methodology (using LEFT handle)
-  {
-    id: "e0-4",
-    source: "0",
-    target: "4",
-    sourceHandle: "left", // Specifying the left handle
-    animated: true,
-    style: { stroke: colors.mainEdgeColor, strokeWidth: 3 },
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-      color: colors.mainEdgeColor,
-      width: 20,
-      height: 20,
-    },
-    zIndex: 1,
-  },
-  
-  // The rest of your edge definitions remain the same
+
   // Frontend children
   {
     id: "e1-5",
@@ -225,6 +168,7 @@ export const initialEdges = [
     },
     zIndex: 0,
   },
+
   // Backend children
   {
     id: "e2-7",
@@ -265,6 +209,7 @@ export const initialEdges = [
     },
     zIndex: 0,
   },
+
   // ML children
   {
     id: "e3-10",
@@ -287,33 +232,6 @@ export const initialEdges = [
     markerEnd: {
       type: MarkerType.ArrowClosed,
       color: colors.mlChild,
-      width: 15,
-      height: 15,
-    },
-    zIndex: 0,
-  },
-  // Methodology children
-  {
-    id: "e4-12",
-    source: "4",
-    target: "12",
-    style: { stroke: colors.methodologyChild, strokeWidth: 2.5 },
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-      color: colors.methodologyChild,
-      width: 15,
-      height: 15,
-    },
-    zIndex: 0,
-  },
-  {
-    id: "e4-13",
-    source: "4",
-    target: "13",
-    style: { stroke: colors.methodologyChild, strokeWidth: 2.5 },
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-      color: colors.methodologyChild,
       width: 15,
       height: 15,
     },
