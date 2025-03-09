@@ -299,6 +299,8 @@ export default function GraphComponent({ dataNodes, dataEdges }) {
   // Main data loading effect
   useEffect(() => {
     if (dataNodes && dataEdges && Array.isArray(dataNodes) && Array.isArray(dataEdges)) {
+      console.log("NODES", dataNodes);
+      console.log("EDGES",  dataEdges);
       setLoading(true);
       
       // Clone the data to avoid reference issues

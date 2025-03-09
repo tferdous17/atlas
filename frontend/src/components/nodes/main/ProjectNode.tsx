@@ -1,7 +1,6 @@
 import { Handle, Position } from "@xyflow/react";
 
 const ProjectNode = ({ data }) => {
-  console.log(data);
   return (
     <div className="relative w-[140px] h-[140px] rounded-full text-white text-xl font-bold flex justify-center items-center shadow-lg border-none bg-green-500">
       <Handle 
