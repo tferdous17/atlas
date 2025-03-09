@@ -91,7 +91,6 @@ const MainPage = () => {
       <SlideTabsExample />
       <AppSidebar />
       <div className="flex h-screen flex-col flex-grow justify-center -mt-9">
-        {/* Only render the search bar if searchSubmitted is false */}
         {!searchSubmitted && (
           <div className="flex flex-col w-full pb-4">
             <div className="relative max-w-3xl mx-auto">
@@ -105,7 +104,11 @@ const MainPage = () => {
                 className="w-full p-4 pr-12 rounded-lg border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 placeholder="Input your project idea..."
                 rows={1}
-                style={{ minHeight: "56px", maxHeight: "200px", minWidth: "750px" }}
+                style={{
+                  minHeight: "56px",
+                  maxHeight: "200px",
+                  minWidth: "750px",
+                }}
               />
               <button
                 className={`absolute right-3 bottom-2.5 p-1 rounded-md ${
@@ -139,7 +142,10 @@ const MainPage = () => {
           </div>
         )}
         {roadmapData && (
-          <GraphComponent dataNodes={roadmapData.nodes} dataEdges={roadmapData.edges} />
+          <GraphComponent
+            dataNodes={roadmapData.nodes}
+            dataEdges={roadmapData.edges}
+          />
         )}
       </div>
     </div>
