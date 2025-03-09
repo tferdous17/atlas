@@ -166,3 +166,14 @@ async def store_roadmap(roadmap_id: str, roadmap_data: dict):
         return response.data[0]
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error storing roadmap: {str(e)}")
+
+
+#Query Roadmap
+async def query_roadmap(roadmap_id: str):
+    try:
+        response = supabase.table("roadmaps").select("*").eq("id", roadmap_id).execute()
+        if not response.data or len(response.data) == 0:
+            raise HTTPException(status_code=404, detail="Roadmap not found")
+        return response.data[0]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching roadmap: {str(e)}")

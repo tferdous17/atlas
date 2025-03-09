@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from typing import Annotated, Dict
-from generate_roadmap import generate_roadmap, store_roadmap
+from generate_roadmap import generate_roadmap, store_roadmap, query_roadmap
 import uuid
 
 '''
@@ -46,7 +46,8 @@ async def generate_map(prompt: Prompt):
 
 # for chris
 @app.get("/api/roadmaps/{roadmap_id}")
-async def get_roadmap(roadmap_id):
-    return roadmap_id
+async def get_roadmap(roadmap_id : str):
+    roadmap = await query_roadmap(roadmap_id)
+    return {"data": roadmap}
 
 
