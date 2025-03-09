@@ -1,6 +1,31 @@
 import { useState } from "react";
 import axios from "axios";
 import GraphComponent from "@/components/GraphComponent";
+import { SlideTabsExample } from "@/components/ui/Navbar";
+import AppSidebar from "@/components/ui/app-sidebar";
+
+const SuggestionPrompts = ({ onSuggestionClick }) => {
+    const [suggestions] = useState([
+      "I want to build my own Twitter clone ↗",
+      "Let's recreate Apache Kafka! ↗",
+      "I want to create a portfolio site ↗",
+    ]);
+  
+    return (
+      <div className="flex flex-wrap gap-2 mt-3 mb-4 px-4 max-w-3xl mx-auto flex items-center justify-center">
+        {suggestions.map((suggestion, index) => (
+          <button
+            key={index}
+            onClick={() => onSuggestionClick(suggestion)}
+            className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded-full transition-colors duration-200 border border-gray-300 flex items-center cursor-pointer"
+          >
+            <span className="truncate max-w-xs">{suggestion}</span>
+          </button>
+        ))}
+      </div>
+    );
+  };
+
 
 const MainPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -63,13 +88,15 @@ const MainPage = () => {
 
   return (
     <div className="absolute inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
-      <div className="flex h-screen flex-col flex-grow justify-center">
+      <SlideTabsExample />
+      <AppSidebar />
+      <div className="flex h-screen flex-col flex-grow justify-center -mt-9">
         {/* Only render the search bar if searchSubmitted is false */}
         {!searchSubmitted && (
           <div className="flex flex-col w-full pb-4">
             <div className="relative max-w-3xl mx-auto">
               <h1 className="text-center text-3xl md:text-4xl font-semibold bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text py-4 px-6 hover:scale-105 transition-transform duration-300">
-                What can I help you create?
+                What can I help you roadmap?
               </h1>
               <textarea
                 value={prompt}
@@ -106,8 +133,9 @@ const MainPage = () => {
               </button>
             </div>
             <p className="text-xs text-gray-500 text-center mt-2">
-              Describe your idea as best as possible, and then let us do the rest.
+              Describe your project idea, and we'll visualize the entire tech stack for you — step by step. 🚀
             </p>
+          <SuggestionPrompts onSuggestionClick={(suggestion: string) => setPrompt(suggestion.substring(0, suggestion.length - 1))}/>
           </div>
         )}
         {roadmapData && (

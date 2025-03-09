@@ -1,6 +1,8 @@
 import LandingPageGraphComponent from "../components/LandingPageGraphComponent";
 import FeatureCard from "../components/FeatureCard";
 import { motion } from "framer-motion";
+
+
 const LandingPage = () => {
 
     return (
@@ -32,7 +34,7 @@ const LandingPage = () => {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1 }}
-            className="text-5xl font-bold text-gray-900 leading-snug text-transparent bg-clip-text text-center bg-gradient-to-r from-blue-800 to-indigo-900 font-serif"
+            className="text-5xl font-bold text-gray-900 leading-snug text-transparent bg-clip-text text-center bg-gradient-to-r from-blue-500 to-purple-500 font-serif"
           >
             Atlas
           </motion.h1>
@@ -60,13 +62,13 @@ const LandingPage = () => {
             transition={{ duration: 1.2 }}
             className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg"
           >
-            Atlas is a visual, interactive tool that dynamically maps out technologies, prerequisites, and dependencies for any project idea—providing a clear path for any project.
+            Atlas is an interactive and visual AI-powered tool that dynamically maps out technologies, prerequisites, and dependencies for any project idea.
           </motion.p>
           <motion.button
             whileHover={{ scale: 1.1 }}
             className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-md shadow-md cursor-pointer"
           >
-            Get Started →
+            <a href="/chat">Get Started →</a>
           </motion.button>
   
           <div className="mt-16 flex justify-center">
