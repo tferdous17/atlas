@@ -17,13 +17,8 @@ import { DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@rad
 // Menu items.
 const items = [
   {
-    title: "Twitter clone",
-    url: "#",
-    icon: CodeXml,
-  },
-  {
-    title: "Apache Kafka clone",
-    url: "#",
+    title: "Flux - Apache Kafka clone",
+    url: "/flux",
     icon: CodeXml,
   },
   {

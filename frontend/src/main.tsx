@@ -1,22 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
-import './index.css'
-import App from './App.tsx'
-import GraphPage from './pages/GraphPage.tsx';
-import MainPage from './pages/MainPage.tsx';
-import { SidebarProvider } from './components/ui/sidebar.tsx';
+import "./index.css";
+import App from "./App.tsx";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-  <BrowserRouter>
-  <SidebarProvider>
-  <Routes>
-    <Route path="/" element={<App />} />
-    <Route path='/chat' element={<MainPage/>}/>
-    <Route path='/graph' element={<GraphPage/>}/>
-  </Routes>
-  </SidebarProvider>
-  </BrowserRouter>
-  </StrictMode>,
-)
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
+);

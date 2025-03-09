@@ -37,8 +37,6 @@ const MainPage = () => {
 
   const sendRequest = () => {
     if (!prompt.trim()) return;
-
-    // Set searchSubmitted to true immediately to remove the search bar.
     setSearchSubmitted(true);
 
     axios
