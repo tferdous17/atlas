@@ -1,6 +1,8 @@
 import os
 import json
 import uuid
+
+from fastapi import HTTPException
 from openai import OpenAI, AsyncOpenAI
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
@@ -154,3 +156,13 @@ async def generate_roadmap(prompt: str):
     
     return parsed_json
 
+#store in database method
+async def store_roadmap(roadmap_id: str, roadmap_data: dict):
+    try:
+        response = supabase.table("roadmaps").insert({
+            "id" : roadmap_id,
+            "roadmap_data" : roadmap_data
+        }).execute()
+        return response.data[0]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error storing roadmap: {str(e)}")
